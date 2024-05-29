@@ -25,7 +25,7 @@ public class User implements Serializable {
     private String password;
 
     @Column(name = "active", nullable = false)
-    private Boolean active;
+    private boolean active;
 
     // Default constructor
     public User() {}
@@ -71,13 +71,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public Boolean getActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
+    public void setActive(boolean active) {}
 
     // Override toString method
     @Override
