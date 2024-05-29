@@ -9,13 +9,30 @@ import java.util.Optional;
 
 public class UserRepositoryImpl implements UserRepository {
 
-    private static final String URL = "jdbc:mariadb://localhost:3306";
+    private static final String URL = "jdbc:mariadb://localhost:3306/mydb";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
+    static {
+        try {
+            Class.forName("org.mariadb.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
-    private Connection connect() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+
+    private Connection connect(){
+        try {
+            return DriverManager.getConnection(
+                    "jdbc:mariadb://localhost:3306/mydb",
+                    "root",
+                    "");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

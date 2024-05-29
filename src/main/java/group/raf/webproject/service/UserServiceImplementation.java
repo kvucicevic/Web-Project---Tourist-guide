@@ -58,7 +58,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public void delete(Integer id) {
-        userRepository.deleteUserById(id);
+    public UserResponseDTO delete(Integer id) {
+        return userMapper.UserToUserResponseDto(userRepository.deleteUserById(id));
     }
 }

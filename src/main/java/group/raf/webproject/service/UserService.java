@@ -21,5 +21,5 @@ public interface UserService {
 
     TokenResponseDTO login(TokenRequestDTO tokenRequestDTO);
 
-    void delete(Integer id);
+    UserResponseDTO delete(Integer id);
 }
