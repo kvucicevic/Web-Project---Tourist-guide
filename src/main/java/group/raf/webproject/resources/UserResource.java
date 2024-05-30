@@ -6,7 +6,7 @@ import com.auth0.jwt.exceptions.JWTVerificationException;
 import group.raf.webproject.dto.token.TokenRequestDTO;
 import group.raf.webproject.dto.token.TokenResponseDTO;
 import group.raf.webproject.dto.user.UserRequestDTO;
-import group.raf.webproject.service.UserService;
+import group.raf.webproject.service.user.UserService;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
@@ -23,14 +23,13 @@ public class UserResource {
     private UserService userService;
 
     /**
-     * UserResponseDTO add(UserRequestDTO UserRequestDTO);
+     *     UserResponseDTO add(UserRequestDTO UserRequestDTO);
      *
      *     List<UserResponseDTO> findAll();
      *
      *     UserResponseDTO findById(Integer id);
      *
      *     UserResponseDTO update(Integer id, UserRequestDTO UserRequestDTO);
-     *
      *
      *     UserResponseDTO activate(Integer id, boolean activate);
      *
@@ -39,6 +38,13 @@ public class UserResource {
      *     void delete(Integer id);
      */
 
+    @POST
+    @Path("/add")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addUser(@Valid UserRequestDTO userRequestDTO) {
+        return Response.ok(userService.add(userRequestDTO)).build();
+    }
 
     @GET
     @Path("/all")
@@ -50,8 +56,6 @@ public class UserResource {
         return Response.ok(this.userService.findAll()).build();
     }
 
-
-
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -62,8 +66,6 @@ public class UserResource {
         return Response.ok(this.userService.findById(id)).build();
     }
 
-
-
     @PUT
     @Path("/{id}/update")
     @Produces(MediaType.APPLICATION_JSON)
@@ -73,7 +75,6 @@ public class UserResource {
 
         return Response.ok(this.userService.update(id, userRequestDTO)).build();
     }
-
 
     @PUT
     @Path("/{id}/activate")
@@ -102,7 +103,6 @@ public class UserResource {
         return Response.ok(response).build();
     }
 
-
     @DELETE
     @Path("/{id}/delete")
     @Produces(MediaType.APPLICATION_JSON)
@@ -111,7 +111,6 @@ public class UserResource {
             return Response.status(Response.Status.UNAUTHORIZED).build();
 
         return Response.ok(this.userService.delete(id)).build();
-
     }
 
     private boolean isValidToken(String authHeader) {

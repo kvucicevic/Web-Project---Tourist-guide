@@ -1,4 +1,4 @@
-package group.raf.webproject.service;
+package group.raf.webproject.service.user;
 
 import group.raf.webproject.database.model.User;
 import group.raf.webproject.dto.token.TokenRequestDTO;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 
-public class UserServiceImplementation implements UserService {
+public class UserServiceImpl implements UserService {
 
     @Inject
     private UserRepository userRepository;
@@ -22,8 +22,8 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public UserResponseDTO add(UserRequestDTO userRequestDTO) {
-        User user = userRepository.findUserByName(userRequestDTO.getFirstName());
-        return userMapper.UserToUserResponseDto(user);
+        User user = userMapper.UserRequestDtoToUser(userRequestDTO);
+        return userMapper.UserToUserResponseDto(userRepository.addUser(user));
     }
 
     @Override

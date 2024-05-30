@@ -6,6 +6,14 @@ public class DestinationResponseDTO {
 
     private String description;
 
+    public DestinationResponseDTO(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
+    public DestinationResponseDTO() {
+    }
+
     public String getName() {
         return name;
     }

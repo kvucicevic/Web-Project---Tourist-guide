@@ -3,8 +3,8 @@ package group.raf.webproject;
 import group.raf.webproject.mapper.UserMapper;
 import group.raf.webproject.repository.user.UserRepository;
 import group.raf.webproject.repository.user.UserRepositoryImpl;
-import group.raf.webproject.service.UserService;
-import group.raf.webproject.service.UserServiceImplementation;
+import group.raf.webproject.service.user.UserService;
+import group.raf.webproject.service.user.UserServiceImpl;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
@@ -26,7 +26,7 @@ public class Application extends ResourceConfig {
             protected void configure() {
                 this.bind(UserRepositoryImpl.class).to(UserRepository.class).in(Singleton.class);
                 this.bind(UserMapper.class).to(UserMapper.class).in(Singleton.class);
-                this.bind(UserServiceImplementation.class).to(UserService.class).in(Singleton.class);
+                this.bind(UserServiceImpl.class).to(UserService.class).in(Singleton.class);
             }
         };
         register(binder);

@@ -1,4 +1,4 @@
-package group.raf.webproject.service;
+package group.raf.webproject.service.user;
 
 import group.raf.webproject.dto.token.TokenRequestDTO;
 import group.raf.webproject.dto.token.TokenResponseDTO;
