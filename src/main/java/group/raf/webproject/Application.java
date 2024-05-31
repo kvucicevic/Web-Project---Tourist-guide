@@ -1,8 +1,13 @@
 package group.raf.webproject;
 
+import group.raf.webproject.mapper.DestinationMapper;
 import group.raf.webproject.mapper.UserMapper;
+import group.raf.webproject.repository.destination.DestinationRepository;
+import group.raf.webproject.repository.destination.DestinationRepositoryImpl;
 import group.raf.webproject.repository.user.UserRepository;
 import group.raf.webproject.repository.user.UserRepositoryImpl;
+import group.raf.webproject.service.destination.DestinationService;
+import group.raf.webproject.service.destination.DestinationServiceImpl;
 import group.raf.webproject.service.user.UserService;
 import group.raf.webproject.service.user.UserServiceImpl;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -25,8 +30,13 @@ public class Application extends ResourceConfig {
             @Override
             protected void configure() {
                 this.bind(UserRepositoryImpl.class).to(UserRepository.class).in(Singleton.class);
+                this.bind(DestinationRepositoryImpl.class).to(DestinationRepository.class).in(Singleton.class);
+                
                 this.bind(UserMapper.class).to(UserMapper.class).in(Singleton.class);
+                this.bind(DestinationMapper.class).to(DestinationMapper.class).in(Singleton.class);
+
                 this.bind(UserServiceImpl.class).to(UserService.class).in(Singleton.class);
+                this.bind(DestinationServiceImpl.class).to(DestinationService.class).in(Singleton.class);
             }
         };
         register(binder);
@@ -35,5 +45,6 @@ public class Application extends ResourceConfig {
         packages("group.raf.webproject.database.model");
         packages("group.raf.webproject.mapper");
         packages("group.raf.webproject.resources");
+        packages("group.raf.webproject.repository");
     }
 }

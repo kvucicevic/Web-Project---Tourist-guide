@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+
 public class DestinationRepositoryImpl implements DestinationRepository {
 
     private static final String URL = "jdbc:mariadb://localhost:3306/mydb";
@@ -109,7 +110,8 @@ public class DestinationRepositoryImpl implements DestinationRepository {
         return destinations;
     }
 
-    public Destination getDestinationById(String id) {
+    @Override
+    public Destination getDestinationById(Integer id) {
         Destination destination = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -119,7 +121,7 @@ public class DestinationRepositoryImpl implements DestinationRepository {
             connection = connect();
             String sql = "SELECT * FROM Destination WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, id);
+            //preparedStatement.setString(1, id);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
@@ -149,6 +151,7 @@ public class DestinationRepositoryImpl implements DestinationRepository {
         return destination;
     }
 
+    @Override
     public Destination getDestinationByName(String name) {
         Destination destination = null;
         Connection connection = null;
@@ -189,6 +192,7 @@ public class DestinationRepositoryImpl implements DestinationRepository {
         return destination;
     }
 
+    @Override
     public Destination updateDestination(Destination destination) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -219,7 +223,8 @@ public class DestinationRepositoryImpl implements DestinationRepository {
         return destination;
     }
 
-    public Destination deleteDestination(String id) {
+    @Override
+    public Destination deleteDestination(Integer id) {
         Destination destination = getDestinationById(id);
         if (destination != null) {
             Connection connection = null;
@@ -229,7 +234,7 @@ public class DestinationRepositoryImpl implements DestinationRepository {
                 connection = connect();
                 String sql = "DELETE FROM Destination WHERE id = ?";
                 preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, id);
+                //preparedStatement.setString(1, id);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -249,4 +254,5 @@ public class DestinationRepositoryImpl implements DestinationRepository {
         return destination;
     }
 }
+
 

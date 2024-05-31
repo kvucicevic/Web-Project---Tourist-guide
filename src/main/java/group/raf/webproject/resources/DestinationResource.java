@@ -1,7 +1,6 @@
 package group.raf.webproject.resources;
 
 import group.raf.webproject.dto.destination.DestinationRequestDTO;
-import group.raf.webproject.dto.user.UserRequestDTO;
 import group.raf.webproject.service.destination.DestinationService;
 
 import javax.inject.Inject;
@@ -27,7 +26,6 @@ public class DestinationResource {
 
     @Inject
     private DestinationService destinationService;
-
 
     @POST
     @Path("/add")
@@ -64,6 +62,5 @@ public class DestinationResource {
     public Response delete(@PathParam("id") Integer id){
         return Response.ok(this.destinationService.delete(id)).build();
     }
-
 
 }

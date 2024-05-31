@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DestinationServiceImpl implements DestinationService{
+public class DestinationServiceImpl implements DestinationService {
 
     @Inject
     private DestinationRepository destinationRepository;
