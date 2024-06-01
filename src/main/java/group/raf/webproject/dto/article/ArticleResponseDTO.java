@@ -1,12 +1,13 @@
 package group.raf.webproject.dto.article;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class ArticleResponseDTO {
 
     private String title;
 
-    private LocalDate date;
+    private Timestamp date;
 
     private String text;
 
@@ -18,11 +19,11 @@ public class ArticleResponseDTO {
         this.title = title;
     }
 
-    public LocalDate getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 

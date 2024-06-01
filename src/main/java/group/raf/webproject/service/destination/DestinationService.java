@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface DestinationService {
 
-
     DestinationResponseDTO add(DestinationRequestDTO destinationRequestDTO);
 
     List<DestinationResponseDTO> findAll();

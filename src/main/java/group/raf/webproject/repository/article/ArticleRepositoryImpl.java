@@ -1,14 +1,13 @@
-package group.raf.webproject.repository.destination;
+package group.raf.webproject.repository.article;
 
-import group.raf.webproject.database.model.Destination;
+import group.raf.webproject.database.model.Article;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
-public class DestinationRepositoryImpl implements DestinationRepository {
+public class ArticleRepositoryImpl implements ArticleRepository {
 
     private static final String URL = "jdbc:mariadb://localhost:3306/mydb";
     private static final String USER = "root";
@@ -31,24 +30,29 @@ public class DestinationRepositoryImpl implements DestinationRepository {
         }
     }
 
+
     @Override
-    public Destination addDestination(Destination destination) {
+    public Article addArticle(Article article) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet;
 
         try {
             connection = connect();
-            String sql = "INSERT INTO Destination (id, name, description) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Article (id, Userid, title, date, text, visitNo, Destinationid) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, destination.getId());
-            preparedStatement.setString(2, destination.getName());
-            preparedStatement.setString(3, destination.getDescription());
+            preparedStatement.setInt(1, article.getId());
+            preparedStatement.setInt(2, article.getUser().getId());
+            preparedStatement.setString(3, article.getTitle());
+            preparedStatement.setTimestamp(4, Timestamp.valueOf(article.getDate().toString()));
+            preparedStatement.setString(5, article.getText());
+            preparedStatement.setInt(6, article.getVisitNo());
+            preparedStatement.setInt(7, article.getDestination().getId());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
 
             if (resultSet.next()) {
-                destination.setId(resultSet.getInt(1));
+                article.setId(resultSet.getInt(1));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,28 +69,32 @@ public class DestinationRepositoryImpl implements DestinationRepository {
             }
         }
 
-        return destination;
+        return article;
     }
 
     @Override
-    public List<Destination> allDestinations() {
-        List<Destination> destinations = new ArrayList<>();
+    public List<Article> allArticles() {
+        List<Article> articles = new ArrayList<>();
         Connection connection = null;
         Statement statement = null;
         ResultSet resultSet = null;
 
         try {
             connection = connect();
-            String sql = "SELECT * FROM Destination";
+            String sql = "SELECT * FROM Article";
             statement = connection.createStatement();
             resultSet = statement.executeQuery(sql);
 
             while (resultSet.next()) {
-                Destination destination = new Destination();
-                destination.setId(resultSet.getInt("id"));
-                destination.setName(resultSet.getString("name"));
-                destination.setDescription(resultSet.getString("description"));
-                destinations.add(destination);
+                Article article = new Article();
+                article.setId(resultSet.getInt("id"));
+                //article.getUser().setId(resultSet.getInt("Userid"));
+                article.setTitle(resultSet.getString("title"));
+                article.setDate(resultSet.getTimestamp("date"));
+                article.setText(resultSet.getString("text"));
+                article.setVisitNo(resultSet.getInt("visitNo"));
+                //article.getDestination().setId(resultSet.getInt("Destinationid"));
+                articles.add(article);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,28 +114,32 @@ public class DestinationRepositoryImpl implements DestinationRepository {
             }
         }
 
-        return destinations;
+        return articles;
     }
 
     @Override
-    public Destination getDestinationById(Integer id) {
-        Destination destination = null;
+    public Article findArticleById(Integer id) {
+        Article article = null;
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
 
         try {
             connection = connect();
-            String sql = "SELECT * FROM Destination WHERE id = ?";
+            String sql = "SELECT * FROM Article WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            //preparedStatement.setString(1, id);
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                destination = new Destination();
-                destination.setId(resultSet.getInt("id"));
-                destination.setName(resultSet.getString("name"));
-                destination.setDescription(resultSet.getString("description"));
+                article = new Article();
+                article.setId(resultSet.getInt("id"));
+                article.getUser().setId(resultSet.getInt("Userid"));
+                article.setTitle(resultSet.getString("title"));
+                article.setDate(resultSet.getTimestamp("date"));
+                article.setText(resultSet.getString("text"));
+                article.setVisitNo(resultSet.getInt("visitNo"));
+                article.getDestination().setId(resultSet.getInt("Destinationid"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -147,62 +159,25 @@ public class DestinationRepositoryImpl implements DestinationRepository {
             }
         }
 
-        return destination;
+        return article;
     }
 
     @Override
-    public Destination getDestinationByName(String name) {
-        Destination destination = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = connect();
-            String sql = "SELECT * FROM Destination WHERE name = ?";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, name);
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                destination = new Destination();
-                destination.setId(resultSet.getInt("id"));
-                destination.setName(resultSet.getString("name"));
-                destination.setDescription(resultSet.getString("description"));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                Optional.ofNullable(resultSet).ifPresent(r -> {
-                    try { r.close(); } catch (SQLException e) { e.printStackTrace(); }
-                });
-                Optional.ofNullable(preparedStatement).ifPresent(p -> {
-                    try { p.close(); } catch (SQLException e) { e.printStackTrace(); }
-                });
-                Optional.ofNullable(connection).ifPresent(c -> {
-                    try { c.close(); } catch (SQLException e) { e.printStackTrace(); }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return destination;
-    }
-
-    @Override
-    public Destination updateDestination(Destination destination) {
+    public Article updateArticle(Article article) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
         try {
             connection = connect();
-            String sql = "UPDATE Destination SET name = ?, description = ? WHERE id = ?";
+            String sql = "UPDATE Article SET Userid = ?, title = ?, date = ?, text = ?, visitNo = ?, Destinationid = ? WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, destination.getName());
-            preparedStatement.setString(2, destination.getDescription());
-            preparedStatement.setInt(3, destination.getId());
+            preparedStatement.setInt(1, article.getUser().getId());
+            preparedStatement.setString(2, article.getTitle());
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(article.getDate().toString()));
+            preparedStatement.setString(4, article.getText());
+            preparedStatement.setInt(5, article.getVisitNo());
+            preparedStatement.setInt(6, article.getDestination().getId());
+            preparedStatement.setInt(7, article.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -219,21 +194,21 @@ public class DestinationRepositoryImpl implements DestinationRepository {
             }
         }
 
-        return destination;
+        return article;
     }
 
     @Override
-    public Destination deleteDestination(Integer id) {
-        Destination destination = getDestinationById(id);
-        if (destination != null) {
+    public Article deleteArticleById(Integer id) {
+        Article article = findArticleById(id);
+        if (article != null) {
             Connection connection = null;
             PreparedStatement preparedStatement = null;
 
             try {
                 connection = connect();
-                String sql = "DELETE FROM Destination WHERE id = ?";
+                String sql = "DELETE FROM Article WHERE id = ?";
                 preparedStatement = connection.prepareStatement(sql);
-                //preparedStatement.setString(1, id);
+                preparedStatement.setInt(1, id);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -250,8 +225,6 @@ public class DestinationRepositoryImpl implements DestinationRepository {
                 }
             }
         }
-        return destination;
+        return article;
     }
 }
-
-

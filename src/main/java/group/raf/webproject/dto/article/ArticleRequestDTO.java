@@ -1,5 +1,6 @@
 package group.raf.webproject.dto.article;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 
 public class ArticleRequestDTO {
@@ -30,8 +31,8 @@ public class ArticleRequestDTO {
         this.title = title;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public Timestamp getDate() {
+        return Timestamp.valueOf(date.toString());
     }
 
     public void setDate(LocalDate date) {
