@@ -21,7 +21,6 @@ public class UserRepositoryImpl implements UserRepository {
         }
     }
 
-
     private Connection connect(){
         try {
             return DriverManager.getConnection(
@@ -43,15 +42,21 @@ public class UserRepositoryImpl implements UserRepository {
 
         try {
             connection = connect();
-            String sql = "INSERT INTO User (id, name, surname, email, password, Active) VALUES (?, ?, ?, ?, ?, ?)";
-            preparedStatement = connection.prepareStatement(sql);
+            String sql = "INSERT INTO User (id, name, surname, email, password, Active, RoleId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, user.getId());
             preparedStatement.setString(2, user.getName());
             preparedStatement.setString(3, user.getSurname());
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getPassword());
             preparedStatement.setBoolean(6, user.isActive());
+            preparedStatement.setInt(7, user.getRole().getId());
             preparedStatement.executeUpdate();
+            resultSet = preparedStatement.getGeneratedKeys();
+
+            if (resultSet.next()) {
+                user.setId(resultSet.getInt(1));
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -91,6 +96,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setActive(resultSet.getBoolean("Active"));
+                //user.setRoleId(resultSet.getInt("RoleId"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -128,7 +134,7 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
-            if (resultSet.next()) {
+            if(resultSet.next()) {
                 user = new User();
                 user.setId(resultSet.getInt("id"));
                 user.setName(resultSet.getString("name"));
@@ -136,6 +142,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setActive(resultSet.getBoolean("Active"));
+                //user.setRoleId(resultSet.getInt("RoleId"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -180,6 +187,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setActive(resultSet.getBoolean("Active"));
+                //user.setRoleId(resultSet.getInt("RoleId"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -209,14 +217,15 @@ public class UserRepositoryImpl implements UserRepository {
 
         try {
             connection = connect();
-            String sql = "UPDATE User SET name = ?, surname = ?, email = ?, password = ?, Active = ? WHERE id = ?";
+            String sql = "UPDATE User SET name = ?, surname = ?, email = ?, password = ?, Active = ?, RoleId = ? WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, user.getName());
             preparedStatement.setString(2, user.getSurname());
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setBoolean(5, user.isActive());
-            preparedStatement.setInt(6, user.getId());
+            preparedStatement.setInt(6, user.getRole().getId());
+            preparedStatement.setInt(7, user.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

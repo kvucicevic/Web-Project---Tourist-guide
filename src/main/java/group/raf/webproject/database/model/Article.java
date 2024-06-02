@@ -3,7 +3,6 @@ package group.raf.webproject.database.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "Article")

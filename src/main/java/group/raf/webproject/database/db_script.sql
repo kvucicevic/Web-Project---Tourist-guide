@@ -1,11 +1,19 @@
 CREATE TABLE IF NOT EXISTS User (
-                      id INTEGER(100) PRIMARY KEY,
-                      name VARCHAR(255) NOT NULL,
-                      surname VARCHAR(255) NOT NULL,
-                      email VARCHAR(255) UNIQUE NOT NULL,
-                      password VARCHAR(255) NOT NULL,
-                      Active BINARY(2) NOT NULL
+                            id INTEGER PRIMARY KEY,
+                            name VARCHAR(255) NOT NULL,
+                            surname VARCHAR(255) NOT NULL,
+                            email VARCHAR(255) UNIQUE NOT NULL,
+                            password VARCHAR(255) NOT NULL,
+                            Active BINARY(2) NOT NULL,
+                            Roleid INTEGER,
+                            FOREIGN KEY (Roleid) REFERENCES Role(id)
 );
+
+CREATE TABLE IF NOT EXISTS Role (
+                            id INTEGER PRIMARY KEY,
+                            name VARCHAR(255) NOT NULL
+);
+
 
 CREATE TABLE IF NOT EXISTS Destination (
                              id INTEGER(100) PRIMARY KEY,
@@ -53,6 +61,12 @@ INSERT INTO User (id, name, surname, email, password, Active) VALUES
                                                                   (1, 'John', 'Doe', 'john.doe@example.com', 'password123', 1),
                                                                   (2, 'Jane', 'Smith', 'jane.smith@example.com', 'password456', 1),
                                                                   (3, 'Alice', 'Johnson', 'alice.johnson@example.com', 'password789', 1);
+
+INSERT INTO Role (id, name) VALUES
+                          (1, 'admin'),
+                          (2, 'manager'),
+                          (3, 'guest');
+
 
 -- Insert sample data into Destination table
 INSERT INTO Destination (id, name, description) VALUES

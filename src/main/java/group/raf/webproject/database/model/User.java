@@ -27,6 +27,10 @@ public class User implements Serializable {
     @Column(name = "active", nullable = false)
     private boolean active;
 
+    @ManyToOne
+    @JoinColumn(name = "Roleid", referencedColumnName = "id")
+    private Role role;
+
     // Default constructor
     public User() {}
 
@@ -76,6 +80,14 @@ public class User implements Serializable {
     }
 
     public void setActive(boolean active) {}
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
 
     // Override toString method
     @Override
