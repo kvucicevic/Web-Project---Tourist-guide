@@ -2,7 +2,7 @@ package group.raf.webproject.database.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 @Entity
 @Table(name = "Article")
@@ -13,15 +13,14 @@ public class Article implements Serializable {
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "Userid", referencedColumnName = "id")
-    private User user;
+    @Column(name = "Userid")
+    private Integer userId;
 
     @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "date", nullable = false)
-    private Timestamp date;
+    private Date date;
 
     @Column(name = "text", nullable = false)
     private String text;
@@ -29,9 +28,8 @@ public class Article implements Serializable {
     @Column(name = "visitNo")
     private Integer visitNo;
 
-    @ManyToOne
-    @JoinColumn(name = "Destinationid", referencedColumnName = "id", foreignKey = @ForeignKey(name = "fk_article_destination", value = ConstraintMode.CONSTRAINT))
-    private Destination destination;
+    @Column(name = "Destinationid")
+    private Integer destinationId;
 
     // Default constructor
     public Article() {}
@@ -45,12 +43,12 @@ public class Article implements Serializable {
         this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getTitle() {
@@ -61,11 +59,11 @@ public class Article implements Serializable {
         this.title = title;
     }
 
-    public Timestamp getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(Timestamp date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -85,12 +83,12 @@ public class Article implements Serializable {
         this.visitNo = visitNo;
     }
 
-    public Destination getDestination() {
-        return destination;
+    public Integer getDestinationId() {
+        return destinationId;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
+    public void setDestinationId(Integer destinationId) {
+        this.destinationId = destinationId;
     }
 
     // Override toString method
@@ -98,12 +96,12 @@ public class Article implements Serializable {
     public String toString() {
         return "Article{" +
                 "id=" + id +
-                ", user=" + user +
+                ", user=" + userId +
                 ", title='" + title + '\'' +
                 ", date=" + date +
                 ", text='" + text + '\'' +
                 ", visitNo=" + visitNo +
-                ", destination=" + destination +
+                ", destination=" + destinationId +
                 '}';
     }
 }

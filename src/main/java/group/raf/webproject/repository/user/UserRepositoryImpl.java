@@ -23,11 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     private Connection connect(){
         try {
-            return DriverManager.getConnection(
-                    "jdbc:mariadb://localhost:3306/mydb",
-                    "root",
-                    "");
-
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -50,7 +46,7 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setString(4, user.getEmail());
             preparedStatement.setString(5, user.getPassword());
             preparedStatement.setBoolean(6, user.isActive());
-            preparedStatement.setInt(7, user.getRole().getId());
+            preparedStatement.setInt(7, user.getRoleId());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
 
@@ -96,7 +92,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setActive(resultSet.getBoolean("Active"));
-                //user.setRoleId(resultSet.getInt("RoleId"));
+                user.setRoleId(resultSet.getInt("RoleId"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -142,7 +138,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setActive(resultSet.getBoolean("Active"));
-                //user.setRoleId(resultSet.getInt("RoleId"));
+                user.setRoleId(resultSet.getInt("RoleId"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,7 +183,7 @@ public class UserRepositoryImpl implements UserRepository {
                 user.setEmail(resultSet.getString("email"));
                 user.setPassword(resultSet.getString("password"));
                 user.setActive(resultSet.getBoolean("Active"));
-                //user.setRoleId(resultSet.getInt("RoleId"));
+                user.setRoleId(resultSet.getInt("RoleId"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -224,7 +220,7 @@ public class UserRepositoryImpl implements UserRepository {
             preparedStatement.setString(3, user.getEmail());
             preparedStatement.setString(4, user.getPassword());
             preparedStatement.setBoolean(5, user.isActive());
-            preparedStatement.setInt(6, user.getRole().getId());
+            preparedStatement.setInt(6, user.getRoleId());
             preparedStatement.setInt(7, user.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {

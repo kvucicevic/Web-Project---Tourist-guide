@@ -12,9 +12,8 @@ public class Comment implements Serializable {
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
-    @ManyToOne
-    @JoinColumn(name = "Articleid", referencedColumnName = "id")
-    private Article article;
+    @Column(name = "Articleid")
+    private Integer articleId;
 
     @Column(name = "author", nullable = false)
     private String author;
@@ -34,12 +33,12 @@ public class Comment implements Serializable {
         this.id = id;
     }
 
-    public Article getArticle() {
-        return article;
+    public Integer getArticleId() {
+        return articleId;
     }
 
-    public void setArticle(Article article) {
-        this.article = article;
+    public void setArticleId(Integer articleId) {
+        this.articleId = articleId;
     }
 
     public String getAuthor() {
@@ -63,7 +62,7 @@ public class Comment implements Serializable {
     public String toString() {
         return "Comment{" +
                 "id=" + id +
-                ", article=" + article +
+                ", article=" + articleId +
                 ", author='" + author + '\'' +
                 ", content='" + content + '\'' +
                 '}';

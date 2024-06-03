@@ -42,12 +42,12 @@ public class ArticleRepositoryImpl implements ArticleRepository {
             String sql = "INSERT INTO Article (id, Userid, title, date, text, visitNo, Destinationid) VALUES (?, ?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             preparedStatement.setInt(1, article.getId());
-            preparedStatement.setInt(2, article.getUser().getId());
+            preparedStatement.setInt(2, article.getUserId());
             preparedStatement.setString(3, article.getTitle());
-            preparedStatement.setTimestamp(4, Timestamp.valueOf(article.getDate().toString()));
+            preparedStatement.setDate(4, article.getDate());
             preparedStatement.setString(5, article.getText());
             preparedStatement.setInt(6, article.getVisitNo());
-            preparedStatement.setInt(7, article.getDestination().getId());
+            preparedStatement.setInt(7, article.getDestinationId());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
 
@@ -88,12 +88,12 @@ public class ArticleRepositoryImpl implements ArticleRepository {
             while (resultSet.next()) {
                 Article article = new Article();
                 article.setId(resultSet.getInt("id"));
-                //article.getUser().setId(resultSet.getInt("Userid"));
+                article.setUserId(resultSet.getInt("Userid"));
                 article.setTitle(resultSet.getString("title"));
-                article.setDate(resultSet.getTimestamp("date"));
+                article.setDate(resultSet.getDate("date"));
                 article.setText(resultSet.getString("text"));
                 article.setVisitNo(resultSet.getInt("visitNo"));
-                //article.getDestination().setId(resultSet.getInt("Destinationid"));
+                article.setDestinationId(resultSet.getInt("Destinationid"));
                 articles.add(article);
             }
         } catch (Exception e) {
@@ -105,6 +105,143 @@ public class ArticleRepositoryImpl implements ArticleRepository {
                 });
                 Optional.ofNullable(statement).ifPresent(s -> {
                     try { s.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+                Optional.ofNullable(connection).ifPresent(c -> {
+                    try { c.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return articles;
+    }
+
+    @Override
+    public List<Article> allArticlesByMostRead() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Article> articles = new ArrayList<>();
+
+        try {
+            connection = connect();
+            String sql = "SELECT * FROM Article ORDER BY visitNo DESC";
+            preparedStatement = connection.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Article article = new Article();
+                article.setId(resultSet.getInt("id"));
+                article.setUserId(resultSet.getInt("Userid"));
+                article.setTitle(resultSet.getString("title"));
+                article.setDate(resultSet.getDate("date"));
+                article.setText(resultSet.getString("text"));
+                article.setVisitNo(resultSet.getInt("visitNo"));
+                article.setDestinationId(resultSet.getInt("Destinationid"));
+                articles.add(article);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                Optional.ofNullable(resultSet).ifPresent(r -> {
+                    try { r.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+                Optional.ofNullable(preparedStatement).ifPresent(p -> {
+                    try { p.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+                Optional.ofNullable(connection).ifPresent(c -> {
+                    try { c.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return articles;
+    }
+
+    @Override
+    public List<Article> allArticlesFromDestination(Integer destinationId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Article> articles = new ArrayList<>();
+
+        try {
+            connection = connect();
+            String sql = "SELECT * FROM Article WHERE Destinationid = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, destinationId);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Article article = new Article();
+                article.setId(resultSet.getInt("id"));
+                article.setUserId(resultSet.getInt("Userid"));
+                article.setTitle(resultSet.getString("title"));
+                article.setDate(resultSet.getDate("date"));
+                article.setText(resultSet.getString("text"));
+                article.setVisitNo(resultSet.getInt("visitNo"));
+                article.setDestinationId(resultSet.getInt("Destinationid"));
+                articles.add(article);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                Optional.ofNullable(resultSet).ifPresent(r -> {
+                    try { r.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+                Optional.ofNullable(preparedStatement).ifPresent(p -> {
+                    try { p.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+                Optional.ofNullable(connection).ifPresent(c -> {
+                    try { c.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        return articles;
+    }
+
+    @Override
+    public List<Article> allArticlesByActivityType(String activityType) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Article> articles = new ArrayList<>();
+
+        try {
+            connection = connect();
+            String sql = "SELECT a.* FROM Article a JOIN Activity ac ON a.Destinationid = ac.Destinationid WHERE ac.name = ?";
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, activityType);
+            resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                Article article = new Article();
+                article.setId(resultSet.getInt("id"));
+                article.setUserId(resultSet.getInt("Userid"));
+                article.setTitle(resultSet.getString("title"));
+                article.setDate(resultSet.getDate("date"));
+                article.setText(resultSet.getString("text"));
+                article.setVisitNo(resultSet.getInt("visitNo"));
+                article.setDestinationId(resultSet.getInt("Destinationid"));
+                articles.add(article);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                Optional.ofNullable(resultSet).ifPresent(r -> {
+                    try { r.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+                Optional.ofNullable(preparedStatement).ifPresent(p -> {
+                    try { p.close(); } catch (SQLException e) { e.printStackTrace(); }
                 });
                 Optional.ofNullable(connection).ifPresent(c -> {
                     try { c.close(); } catch (SQLException e) { e.printStackTrace(); }
@@ -134,12 +271,12 @@ public class ArticleRepositoryImpl implements ArticleRepository {
             if (resultSet.next()) {
                 article = new Article();
                 article.setId(resultSet.getInt("id"));
-                article.getUser().setId(resultSet.getInt("Userid"));
+                article.setUserId(resultSet.getInt("Userid"));
                 article.setTitle(resultSet.getString("title"));
-                article.setDate(resultSet.getTimestamp("date"));
+                article.setDate(resultSet.getDate("date"));
                 article.setText(resultSet.getString("text"));
                 article.setVisitNo(resultSet.getInt("visitNo"));
-                article.getDestination().setId(resultSet.getInt("Destinationid"));
+                article.setDestinationId(resultSet.getInt("Destinationid"));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -171,12 +308,12 @@ public class ArticleRepositoryImpl implements ArticleRepository {
             connection = connect();
             String sql = "UPDATE Article SET Userid = ?, title = ?, date = ?, text = ?, visitNo = ?, Destinationid = ? WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, article.getUser().getId());
+            preparedStatement.setInt(1, article.getUserId());
             preparedStatement.setString(2, article.getTitle());
             preparedStatement.setTimestamp(3, Timestamp.valueOf(article.getDate().toString()));
             preparedStatement.setString(4, article.getText());
             preparedStatement.setInt(5, article.getVisitNo());
-            preparedStatement.setInt(6, article.getDestination().getId());
+            preparedStatement.setInt(6, article.getDestinationId());
             preparedStatement.setInt(7, article.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {

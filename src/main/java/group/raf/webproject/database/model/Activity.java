@@ -15,9 +15,8 @@ public class Activity implements Serializable {
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "Destinationid", referencedColumnName = "id")
-    private Destination destination;
+    @Column(name = "Destinationid")
+    private Integer destinationId;
 
     // Default constructor
     public Activity() {}
@@ -39,12 +38,12 @@ public class Activity implements Serializable {
         this.name = name;
     }
 
-    public Destination getDestination() {
-        return destination;
+    public Integer getDestinationId() {
+        return destinationId;
     }
 
-    public void setDestination(Destination destination) {
-        this.destination = destination;
+    public void setDestinationId(Integer destinationId) {
+        this.destinationId = destinationId;
     }
 
     // Override toString method
@@ -53,7 +52,7 @@ public class Activity implements Serializable {
         return "Activity{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", destination=" + destination +
+                ", destination=" + destinationId +
                 '}';
     }
 }

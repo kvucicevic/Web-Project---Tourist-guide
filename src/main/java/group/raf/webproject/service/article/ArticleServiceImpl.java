@@ -17,6 +17,7 @@ public class ArticleServiceImpl implements ArticleService {
     
     @Inject
     private ArticleMapper articleMapper;
+
     
     @Override
     public ArticleResponseDTO add(ArticleRequestDTO articleRequestDTO) {

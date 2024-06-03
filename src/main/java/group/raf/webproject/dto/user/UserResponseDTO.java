@@ -1,5 +1,7 @@
 package group.raf.webproject.dto.user;
 
+import group.raf.webproject.database.model.Role;
+
 public class UserResponseDTO {
 
     private Integer id;
@@ -11,6 +13,8 @@ public class UserResponseDTO {
     private String email;
 
     private Boolean active;
+
+    private Role role;
 
 
     public Integer getId() {
@@ -51,5 +55,13 @@ public class UserResponseDTO {
 
     public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

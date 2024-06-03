@@ -1,19 +1,22 @@
 package group.raf.webproject.dto.article;
 
-import java.sql.Timestamp;
-import java.time.LocalDate;
+import java.sql.Date;
 
 public class ArticleRequestDTO {
 
     private Integer id;
 
+    private Integer userId;
+
     private String title;
 
-    private LocalDate date;
+    private Date date;
 
     private String text;
 
     private Integer visitNo;
+
+    private Integer destinationId;
 
     public Integer getId() {
         return id;
@@ -31,11 +34,11 @@ public class ArticleRequestDTO {
         this.title = title;
     }
 
-    public Timestamp getDate() {
-        return Timestamp.valueOf(date.toString());
+    public Date getDate() {
+        return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -53,5 +56,21 @@ public class ArticleRequestDTO {
 
     public void setVisitNo(Integer visitNo) {
         this.visitNo = visitNo;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public Integer getDestinationId() {
+        return destinationId;
+    }
+
+    public void setDestinationId(Integer destinationId) {
+        this.destinationId = destinationId;
     }
 }

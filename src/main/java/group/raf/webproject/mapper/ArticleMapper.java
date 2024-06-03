@@ -9,10 +9,12 @@ public class ArticleMapper {
     public Article articleRequestDTOToArticle(ArticleRequestDTO articleRequestDTO) {
         Article article = new Article();
         article.setId(articleRequestDTO.getId());
+        article.setUserId(articleRequestDTO.getUserId());
         article.setTitle(articleRequestDTO.getTitle());
         article.setDate(articleRequestDTO.getDate());
         article.setText(articleRequestDTO.getText());
         article.setVisitNo(articleRequestDTO.getVisitNo());
+        article.setDestinationId(articleRequestDTO.getDestinationId());
         return article;
     }
 

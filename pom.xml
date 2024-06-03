@@ -108,7 +108,7 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!--        MARIADB DRIVER-->
+        <!--        MARIADB DRIVER      -->
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>

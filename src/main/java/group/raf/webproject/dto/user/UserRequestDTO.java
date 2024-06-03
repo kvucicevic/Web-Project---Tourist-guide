@@ -12,6 +12,8 @@ public class UserRequestDTO {
 
     private String password;
 
+    private Integer roleId;
+
     public String getFirstName() {
         return firstName;
     }
@@ -50,5 +52,13 @@ public class UserRequestDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Integer getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 }
