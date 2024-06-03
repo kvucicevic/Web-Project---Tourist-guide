@@ -17,6 +17,12 @@ public class ArticleResource {
      *
      *     List<ArticleResponseDTO> findAll();
      *
+     *     List<ArticleResponseDTO> allArticlesByMostRead();
+     *
+     *     List<ArticleResponseDTO> allArticlesFromDestination(ArticleRequestDTO articleRequestDTO);
+     *
+     *     List<ArticleResponseDTO> allArticlesByActivityType(String activityType);
+     *
      *     ArticleResponseDTO findById(Integer id);
      *
      *     ArticleResponseDTO update(Integer id, ArticleRequestDTO articleRequestDTO);
@@ -33,6 +39,27 @@ public class ArticleResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response addUser(@Valid ArticleRequestDTO articleRequestDTO) {
         return Response.ok(articleService.add(articleRequestDTO)).build();
+    }
+
+    @GET
+    @Path("/mostRead")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response allArticlesByMostRead(){
+        return Response.ok(this.articleService.allArticlesByMostRead()).build();
+    }
+
+    @GET
+    @Path("/articlesForDestination") // ne radi, zbog bodyja
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response allArticlesByDestination(@Valid ArticleRequestDTO articleRequestDTO){
+        return Response.ok(this.articleService.allArticlesFromDestination(articleRequestDTO)).build();
+    }
+
+    @GET
+    @Path("/articlesByActivity")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response allArticlesByActivity(@QueryParam("activityType") String activityType){
+        return Response.ok(this.articleService.allArticlesByActivityType(activityType)).build();
     }
 
     @GET

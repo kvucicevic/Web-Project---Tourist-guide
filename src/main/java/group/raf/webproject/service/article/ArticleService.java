@@ -11,6 +11,12 @@ public interface ArticleService {
 
     List<ArticleResponseDTO> findAll();
 
+    List<ArticleResponseDTO> allArticlesByMostRead();
+
+    List<ArticleResponseDTO> allArticlesFromDestination(ArticleRequestDTO articleRequestDTO);
+
+    List<ArticleResponseDTO> allArticlesByActivityType(String activityType);
+
     ArticleResponseDTO findById(Integer id);
 
     ArticleResponseDTO update(Integer id, ArticleRequestDTO articleRequestDTO);

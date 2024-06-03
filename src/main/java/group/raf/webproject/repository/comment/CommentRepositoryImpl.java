@@ -31,7 +31,6 @@ public class CommentRepositoryImpl implements CommentRepository {
         }
     }
 
-
     @Override
     public Comment addCommentForArticle(Comment comment) {
         Connection connection = null;

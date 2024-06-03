@@ -18,6 +18,7 @@ public class ArticleRequestDTO {
 
     private Integer destinationId;
 
+
     public Integer getId() {
         return id;
     }

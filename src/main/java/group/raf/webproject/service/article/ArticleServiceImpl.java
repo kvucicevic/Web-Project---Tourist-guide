@@ -35,6 +35,33 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleResponseDTO> allArticlesByMostRead() {
+        List<ArticleResponseDTO> articleResponseDTOS = new ArrayList<>();
+        for(Article Article : articleRepository.allArticlesByMostRead()){
+            articleResponseDTOS.add(articleMapper.articleToArticleResponseDTO(Article));
+        }
+        return articleResponseDTOS;
+    }
+
+    @Override
+    public List<ArticleResponseDTO> allArticlesFromDestination(ArticleRequestDTO articleRequestDTO) {
+        List<ArticleResponseDTO> articleResponseDTOS = new ArrayList<>();
+        for(Article Article : articleRepository.allArticlesFromDestination(articleRequestDTO.getDestinationId())){
+            articleResponseDTOS.add(articleMapper.articleToArticleResponseDTO(Article));
+        }
+        return articleResponseDTOS;
+    }
+
+    @Override
+    public List<ArticleResponseDTO> allArticlesByActivityType(String activityType) {
+        List<ArticleResponseDTO> articleResponseDTOS = new ArrayList<>();
+        for(Article Article : articleRepository.allArticlesByActivityType(activityType)){
+            articleResponseDTOS.add(articleMapper.articleToArticleResponseDTO(Article));
+        }
+        return articleResponseDTOS;
+    }
+
+    @Override
     public ArticleResponseDTO findById(Integer id) {
         return articleMapper.articleToArticleResponseDTO(articleRepository.findArticleById(id));
     }

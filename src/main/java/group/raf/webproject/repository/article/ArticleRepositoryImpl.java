@@ -310,7 +310,7 @@ public class ArticleRepositoryImpl implements ArticleRepository {
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, article.getUserId());
             preparedStatement.setString(2, article.getTitle());
-            preparedStatement.setTimestamp(3, Timestamp.valueOf(article.getDate().toString()));
+            preparedStatement.setDate(3, article.getDate());
             preparedStatement.setString(4, article.getText());
             preparedStatement.setInt(5, article.getVisitNo());
             preparedStatement.setInt(6, article.getDestinationId());
