@@ -3,7 +3,6 @@ package group.raf.webproject.database.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "Article")
@@ -31,9 +30,6 @@ public class Article implements Serializable {
 
     @Column(name = "Destinationid")
     private Integer destinationId;
-
-    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments;
 
     // Default constructor
     public Article() {}
@@ -93,14 +89,6 @@ public class Article implements Serializable {
 
     public void setDestinationId(Integer destinationId) {
         this.destinationId = destinationId;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
     }
 
     // Override toString method

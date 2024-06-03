@@ -1,11 +1,10 @@
 package group.raf.webproject;
 
-import group.raf.webproject.mapper.ArticleMapper;
-import group.raf.webproject.mapper.DestinationMapper;
-import group.raf.webproject.mapper.RoleMapper;
-import group.raf.webproject.mapper.UserMapper;
+import group.raf.webproject.mapper.*;
 import group.raf.webproject.repository.article.ArticleRepository;
 import group.raf.webproject.repository.article.ArticleRepositoryImpl;
+import group.raf.webproject.repository.comment.CommentRepository;
+import group.raf.webproject.repository.comment.CommentRepositoryImpl;
 import group.raf.webproject.repository.destination.DestinationRepository;
 import group.raf.webproject.repository.destination.DestinationRepositoryImpl;
 import group.raf.webproject.repository.role.RoleRepository;
@@ -43,11 +42,13 @@ public class Application extends ResourceConfig {
                 this.bind(DestinationRepositoryImpl.class).to(DestinationRepository.class).in(Singleton.class);
                 this.bind(ArticleRepositoryImpl.class).to(ArticleRepository.class).in(Singleton.class);
                 this.bind(RoleRepositoryImpl.class).to(RoleRepository.class).in(Singleton.class);
+                this.bind(CommentRepositoryImpl.class).to(CommentRepository.class).in(Singleton.class);
 
                 this.bind(UserMapper.class).to(UserMapper.class).in(Singleton.class);
                 this.bind(DestinationMapper.class).to(DestinationMapper.class).in(Singleton.class);
                 this.bind(ArticleMapper.class).to(ArticleMapper.class).in(Singleton.class);
                 this.bind(RoleMapper.class).to(RoleMapper.class).in(Singleton.class);
+                this.bind(CommentMapper.class).to(CommentMapper.class).in(Singleton.class);
 
                 this.bind(UserServiceImpl.class).to(UserService.class).in(Singleton.class);
                 this.bind(DestinationServiceImpl.class).to(DestinationService.class).in(Singleton.class);

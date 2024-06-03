@@ -32,7 +32,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public Comment addCommentForArticle(Comment comment) {
+    public Comment addCommentForArticle(Integer id, Comment comment) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet;
@@ -70,7 +70,7 @@ public class CommentRepositoryImpl implements CommentRepository {
     }
 
     @Override
-    public List<Comment> allCommentsForArticle(Article article) {
+    public List<Comment> allCommentsForArticle(Integer id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -80,7 +80,7 @@ public class CommentRepositoryImpl implements CommentRepository {
             connection = connect();
             String sql = "SELECT * FROM Comment WHERE Articleid = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, article.getId());
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {

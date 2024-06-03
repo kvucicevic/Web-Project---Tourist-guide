@@ -9,6 +9,4 @@ public interface RoleService {
 
     List<RoleResponseDTO> findAll();
 
-    RoleResponseDTO update(Integer id, RoleRequestDTO roleRequestDTO);
-    
 }

@@ -27,9 +27,4 @@ public class RoleServiceImpl implements RoleService {
         return RoleResponseDTOS;
     }
 
-    @Override
-    public RoleResponseDTO update(Integer id, RoleRequestDTO roleRequestDTO) {
-        Role role = roleMapper.roleRequestDTOToRole(roleRequestDTO);
-        return roleMapper.roleToRoleResponseDTO(roleRepository.updateRole(role));
-    }
 }

@@ -7,6 +7,5 @@ import java.util.List;
 public interface RoleRepository {
 
     List<Role> allRoles();
-    Role updateRole(Role role);
 
 }

@@ -1,10 +1,6 @@
 package group.raf.webproject.dto.article;
 
-import group.raf.webproject.database.model.Comment;
-
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ArticleResponseDTO {
 
@@ -13,8 +9,6 @@ public class ArticleResponseDTO {
     private Date date;
 
     private String text;
-
-    private List<Comment> comments = new ArrayList<>();
 
     public String getTitle() {
         return title;
@@ -40,11 +34,4 @@ public class ArticleResponseDTO {
         this.text = text;
     }
 
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
 }

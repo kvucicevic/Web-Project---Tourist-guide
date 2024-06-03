@@ -74,34 +74,4 @@ public class RoleRepositoryImpl implements RoleRepository {
     }
 
 
-    @Override
-    public Role updateRole(Role role) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-
-        try {
-            connection = connect();
-            String sql = "UPDATE Role SET name = ? WHERE id = ?";
-            preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, role.getName());
-            preparedStatement.setInt(2, role.getId());
-            preparedStatement.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                Optional.ofNullable(preparedStatement).ifPresent(p -> {
-                    try { p.close(); } catch (SQLException e) { e.printStackTrace(); }
-                });
-                Optional.ofNullable(connection).ifPresent(c -> {
-                    try { c.close(); } catch (SQLException e) { e.printStackTrace(); }
-                });
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        return role;
-    }
-
 }

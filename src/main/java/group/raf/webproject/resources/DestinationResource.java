@@ -31,7 +31,7 @@ public class DestinationResource {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(@Valid DestinationRequestDTO destinationRequestDTO) {
+    public Response addDestination(@Valid DestinationRequestDTO destinationRequestDTO) {
         return Response.ok(destinationService.add(destinationRequestDTO)).build();
     }
 

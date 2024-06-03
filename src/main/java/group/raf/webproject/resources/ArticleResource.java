@@ -1,6 +1,7 @@
 package group.raf.webproject.resources;
 
 import group.raf.webproject.dto.article.ArticleRequestDTO;
+import group.raf.webproject.dto.comment.CommentRequestDTO;
 import group.raf.webproject.service.article.ArticleService;
 
 import javax.inject.Inject;
@@ -16,6 +17,10 @@ public class ArticleResource {
      *     ArticleResponseDTO add(ArticleRequestDTO articleRequestDTO);
      *
      *     List<ArticleResponseDTO> findAll();
+     *
+     *     CommentResponseDTO addCommentForArticle(CommentRequestDTO commentRequestDTO);
+     *
+     *     List<CommentResponseDTO> allCommentsForArticle(ArticleRequestDTO articleRequestDTO);
      *
      *     List<ArticleResponseDTO> allArticlesByMostRead();
      *
@@ -37,8 +42,23 @@ public class ArticleResource {
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(@Valid ArticleRequestDTO articleRequestDTO) {
+    public Response addArticle(@Valid ArticleRequestDTO articleRequestDTO) {
         return Response.ok(articleService.add(articleRequestDTO)).build();
+    }
+
+    @POST
+    @Path("/{id}/addComment")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addComment(@PathParam("id") Integer id, @Valid CommentRequestDTO commentRequestDTO) {
+        return Response.ok(articleService.addCommentForArticle(id, commentRequestDTO)).build();
+    }
+
+    @GET
+    @Path("/{id}/allComments")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response allCommentsForArticle(@PathParam("id") Integer id){
+        return Response.ok(this.articleService.allCommentsForArticle(id)).build();
     }
 
     @GET
@@ -49,10 +69,10 @@ public class ArticleResource {
     }
 
     @GET
-    @Path("/articlesForDestination") // ne radi, zbog bodyja
+    @Path("/articlesForDestination")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response allArticlesByDestination(@Valid ArticleRequestDTO articleRequestDTO){
-        return Response.ok(this.articleService.allArticlesFromDestination(articleRequestDTO)).build();
+    public Response allArticlesByDestination(@QueryParam("destinationId") Integer destinationId){
+        return Response.ok(this.articleService.allArticlesFromDestination(destinationId)).build();
     }
 
     @GET

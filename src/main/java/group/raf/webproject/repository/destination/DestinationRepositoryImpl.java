@@ -120,7 +120,7 @@ public class DestinationRepositoryImpl implements DestinationRepository {
             connection = connect();
             String sql = "SELECT * FROM Destination WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            //preparedStatement.setString(1, id);
+            preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
