@@ -30,7 +30,6 @@ public class ArticleRepositoryImpl implements ArticleRepository {
         }
     }
 
-
     @Override
     public Article addArticle(Article article) {
         Connection connection = null;
