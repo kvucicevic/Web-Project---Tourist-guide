@@ -8,12 +8,12 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <!-- <li class="nav-item">
-                <router-link to="/" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'HomePage'}">HomePage</router-link>
+              <li class="nav-item">
+                <router-link to="/" class="nav-link" :class="{active: this.$router.currentRoute.name === 'AllArticles'}">HomePage</router-link>
               </li>
               <li class="nav-item">
-                <router-link :to="{name: 'AllSubjects'}" tag="a" class="nav-link" :class="{active: this.$router.currentRoute.name === 'AllSubjects'}">AllSubjects</router-link>
-              </li> -->
+                <router-link :to="{name: 'MostReadArticles'}" class="nav-link" :class="{active: this.$router.currentRoute.name === 'mostRead'}">Most Read</router-link>
+              </li>
             </ul>
             <form v-if="canLogout" class="d-flex" @submit.prevent="logout">
               <button class="btn btn-outline-secondary" type="submit">Logout</button>
