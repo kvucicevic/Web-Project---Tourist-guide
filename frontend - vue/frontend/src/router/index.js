@@ -4,6 +4,7 @@ import AllArticles from '../views/articles/AllArticles.vue'
 import ArticleItemView from '../views/articles/ArticleItemView.vue'
 import MostReadArticles from '../views/articles/MostReadArticles.vue'
 import ArticlesByActivity from '../views/articles/ArticlesByActivity.vue'
+import ActivityView from '../views/articles/ActivityView.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,12 @@ const routes = [
     path: '/articles/byAtivity',
     name: 'ArticlesByActivity',
     component: ArticlesByActivity,
+    props: true
+  },
+  {
+    path: '/activity/:id',
+    name: 'ActivityView',
+    component: ActivityView,
     props: true
   },
 //   {

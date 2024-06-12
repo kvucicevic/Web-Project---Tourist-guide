@@ -19,6 +19,20 @@
     <div v-else>
       <p>Loading comments...</p>
     </div>
+    <div class="activities-section" v-if="activities.length">
+      <h2>Activities</h2>
+      <ul>
+        <!-- <li v-for="activity in activities" :key="activity.id">
+          <router-link :to="{ name: 'ActivityView', params: { id: activity.id } }">{{ activity.name }}</router-link>
+        </li> -->
+        <li v-for="activity in activities" :key="activity.id">
+          <router-link :to="{ name: 'ActivityView', params: { activityType: activity.name } }">{{ activity.name }}</router-link>
+        </li>
+      </ul>
+    </div>
+    <div v-else>
+      <p>Loading activities...</p>
+    </div>
   </div>
   </template>
   
@@ -34,7 +48,8 @@
       return {
       article: null,
       comments: [],
-      destinationName: '' // Initialize destinationName
+      destinationName: '', // Initialize destinationName
+      activities: []
       }
     },
     props: ['id'],
@@ -49,6 +64,7 @@
             this.article = response.data
             if (this.article && this.article.destinationId) {
               this.fetchDestinationName(this.article.destinationId)
+              this.fetchActivities(this.article.destinationId)
             }
         } catch (error) {
             console.error('Error fetching article:', error)
@@ -70,6 +86,15 @@
           this.destinationName = response.data.name
         } catch (error) {
           console.error('Error fetching destination name:', error)
+        }
+      },
+      async fetchActivities(destinationId) {
+        try {
+          console.log('Fetching activities for destination ID:', destinationId);
+          const response = await axios.get(`http://localhost:8080/myApp/destinations/${destinationId}/allActivities`)
+          this.activities = response.data
+        } catch (error) {
+          console.error('Error fetching activities:', error)
         }
       }
     },

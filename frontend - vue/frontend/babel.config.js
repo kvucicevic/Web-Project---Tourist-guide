@@ -3,3 +3,7 @@ module.exports = {
     '@vue/cli-plugin-babel/preset'
   ]
 }
+
+// export const presets = [
+//   '@vue/cli-plugin-babel/preset'
+// ];
