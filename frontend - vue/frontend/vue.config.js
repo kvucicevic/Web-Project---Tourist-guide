@@ -3,5 +3,8 @@
 //   transpileDependencies: true
 // })
 module.exports = {
-  transpileDependencies: []
+  transpileDependencies: [],
+  devServer: {
+    port: 8081 // Specify the port number you want
+  }
 };
