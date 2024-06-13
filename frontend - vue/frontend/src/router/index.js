@@ -5,6 +5,8 @@ import ArticleItemView from '../views/articles/ArticleItemView.vue'
 import MostReadArticles from '../views/articles/MostReadArticles.vue'
 import ArticlesByActivity from '../views/articles/ArticlesByActivity.vue'
 import ActivityView from '../views/articles/ActivityView.vue'
+import DestinationsView from '../views/cms/DestinationsView.vue'
+import EditDestination from '../views/cms/EditDestinationView.vue'
 
 Vue.use(VueRouter)
 
@@ -38,6 +40,14 @@ const routes = [
     component: ActivityView,
     props: true
   },
+  {
+    path: '/destinations/all',
+    name: 'DestinationsView',
+    component: DestinationsView,
+    props: true
+  },
+  { path: '/destinations/add', component: EditDestination },
+  { path: '/destinations/:id/update', component: EditDestination },
 //   {
 //     path: '/subjects',
 //     name: 'AllSubjects',

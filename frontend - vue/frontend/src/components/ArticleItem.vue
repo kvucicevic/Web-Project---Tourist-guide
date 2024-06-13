@@ -21,8 +21,6 @@
     },
     methods: {
       goToArticle() {
-        console.log('printam artikl:')
-        console.log(this.article)
         this.$router.push(`/articles/${this.article.id}`)
       }
     }

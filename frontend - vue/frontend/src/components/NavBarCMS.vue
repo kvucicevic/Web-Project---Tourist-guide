@@ -9,13 +9,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <router-link to="/" class="nav-link" :class="{active: this.$router.currentRoute.name === 'AllArticles'}">HomePage</router-link>
+                <router-link to="/" class="nav-link" :class="{active: this.$router.currentRoute.name === 'AllArticles'}">Destinations</router-link>
               </li>
               <li class="nav-item">
-                <router-link :to="{name: 'MostReadArticles'}" class="nav-link" :class="{active: this.$router.currentRoute.name === 'mostRead'}">Most Read</router-link>
-              </li>
-              <li class="nav-item">
-                <router-link :to="{name: 'DestinationsView'}" class="nav-link" :class="{active: this.$router.currentRoute.name === 'destinations'}">Login</router-link>
+                <router-link :to="{name: 'MostReadArticles'}" class="nav-link" :class="{active: this.$router.currentRoute.name === 'mostRead'}">Articles</router-link>
               </li>
             </ul>
             <form v-if="canLogout" class="d-flex" @submit.prevent="logout">
@@ -25,26 +22,25 @@
         </div>
       </nav>
     </div>
-  </template>
-  
-  <script>
-  export default {
-    name: "NavigationBar",
-    computed: {
-      canLogout() {
-        return this.$route.name !== 'LoginPage';
-      }
-    },
-    methods: {
-      logout() {
-        localStorage.removeItem('jwt');
-        this.$router.push({name: 'LoginPage'});
-      }
+</template>
+
+<script>
+export default {
+  name: "NavBarCMS",
+  computed: {
+    canLogout() {
+      return this.$route.name !== 'LoginPage';
+    }
+  },
+  methods: {
+    logout() {
+      localStorage.removeItem('jwt');
+      this.$router.push({name: 'LoginPage'});
     }
   }
-  </script>
-  
-  <style scoped>
-  
-  </style>
-  
+}
+</script>
+
+<style scoped>
+
+</style>
