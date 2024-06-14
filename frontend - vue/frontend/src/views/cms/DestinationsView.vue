@@ -2,7 +2,7 @@
   <div>
     <div class="destinations-container">
       <div class="destination-item-container" v-for="destination in destinations" :key="destination.id">
-        <DestinationItem :destination="destination" />
+        <DestinationItem :destination="destination"/>
         <div class="buttons">
           <button @click="editDestination(destination.id)">Edit</button>
           <button @click="deleteDestination(destination.id)">Delete</button>
@@ -49,7 +49,7 @@ export default {
     async deleteDestination(id) {
       if (id) {
         try {
-          await axios.delete(`http://localhost:8080/myApp/destinations/${id}/delete`)
+          await axios.delete(`http://localhost:8080/myApp/destinations/${id}`)
           this.fetchDestinations()
         } catch (error) {
           console.error('Error deleting destination:', error)

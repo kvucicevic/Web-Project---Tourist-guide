@@ -1,4 +1,3 @@
-<!-- src/views/EditDestination.vue -->
 <template>
     <div>
       <DestinationForm 

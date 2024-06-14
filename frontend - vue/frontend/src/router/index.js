@@ -7,6 +7,9 @@ import ArticlesByActivity from '../views/articles/ArticlesByActivity.vue'
 import ActivityView from '../views/articles/ActivityView.vue'
 import DestinationsView from '../views/cms/DestinationsView.vue'
 import EditDestination from '../views/cms/EditDestinationView.vue'
+import ArticlesView from '../views/cms/ArticlesView.vue'
+import EditArticle from '../views/cms/EditArticlesView.vue'
+import AddArticle from '../views/cms/NewArticleView.vue'
 
 Vue.use(VueRouter)
 
@@ -48,6 +51,24 @@ const routes = [
   },
   { path: '/destinations/add', component: EditDestination },
   { path: '/destinations/:id/update', component: EditDestination },
+  {
+    path: '/cmsArticles/all',
+    name: 'ArticlesView',
+    component: ArticlesView,
+    props: true
+  },
+  {
+    path: '/cmsArticles/add',
+    name: 'AddArticle',
+    component: AddArticle,
+  },
+  {
+    path: '/articles/:id/update',
+    name: 'EditArticle',
+    component: EditArticle,
+    props: true,
+  },
+  
 //   {
 //     path: '/subjects',
 //     name: 'AllSubjects',
