@@ -1,8 +1,7 @@
 package group.raf.webproject.resources;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.exceptions.JWTVerificationException;
+import group.raf.webproject.auth.annotations.Admin;
+import group.raf.webproject.auth.annotations.AdminOrManager;
 import group.raf.webproject.dto.token.TokenRequestDTO;
 import group.raf.webproject.dto.token.TokenResponseDTO;
 import group.raf.webproject.dto.user.UserRequestDTO;
@@ -38,7 +37,9 @@ public class UserResource {
      *     void delete(Integer id);
      */
 
+    
     @POST
+    @Admin
     @Path("/add")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
@@ -47,12 +48,10 @@ public class UserResource {
     }
 
     @GET
+    @AdminOrManager
     @Path("/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response findAll(){ //@HeaderParam("Authorization") String authHeader){
-//        if (!isValidToken(authHeader))
-//            return Response.status(Response.Status.UNAUTHORIZED).build();
-
+    public Response findAll(@HeaderParam("Authorization") String authHeader){
         return Response.ok(this.userService.findAll()).build();
     }
 
@@ -60,29 +59,22 @@ public class UserResource {
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response findById(@PathParam("id") Integer id){
-//        if (!isValidToken(authHeader))
-//            return Response.status(Response.Status.UNAUTHORIZED).build();
-
         return Response.ok(this.userService.findById(id)).build();
     }
 
     @PUT
+    @Admin
     @Path("/{id}/update")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response update(@PathParam("id") Integer id, @Valid UserRequestDTO userRequestDTO){
-//        if (!isValidToken(authHeader))
-//            return Response.status(Response.Status.UNAUTHORIZED).build();
-
+    public Response update(@HeaderParam("Authorization") String authHeader, @PathParam("id") Integer id, @Valid UserRequestDTO userRequestDTO){
         return Response.ok(this.userService.update(id, userRequestDTO)).build();
     }
 
     @PUT
+    @AdminOrManager
     @Path("/{id}/activate")
     @Produces(MediaType.APPLICATION_JSON)
     public Response activate(@HeaderParam("Authorization") String authHeader, @PathParam("id") Integer id){
-        if (!isValidToken(authHeader))
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-
         return Response.ok(this.userService.activate(id, true)).build();
     }
 
@@ -92,47 +84,46 @@ public class UserResource {
     public Response login(@Valid TokenRequestDTO tokenRequestDTO) {
         Map<String, String> response = new HashMap<>();
 
-        TokenResponseDTO userResponse = userService.login(tokenRequestDTO);
+        TokenResponseDTO userResponse = userService.login(tokenRequestDTO); // jwt
         if (userResponse == null) {
             response.put("message", "Invalid credentials");
             return Response.status(401, "Unauthorized: wrong credentials").entity(response).build();
         }
 
-//        response.put("jwt", user.split(" , ")[0]);
+        response.put("jwt", userResponse.getToken());
+        System.out.println("Token: " + userResponse.getToken());
 //        response.put("name", user.split(" , ")[1]);
         return Response.ok(response).build();
     }
 
     @DELETE
+    @Admin
     @Path("/{id}/delete")
     @Produces(MediaType.APPLICATION_JSON)
     public Response delete(@HeaderParam("Authorization") String authHeader, @PathParam("id") Integer id){
-        if (!isValidToken(authHeader))
-            return Response.status(Response.Status.UNAUTHORIZED).build();
-
         return Response.ok(this.userService.delete(id)).build();
     }
 
-    private boolean isValidToken(String authHeader) {
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) return false;
-        String token = authHeader.substring("Bearer ".length());
-
-        try {
-            Algorithm algorithm = Algorithm.HMAC256("secret");
-            JWT.require(algorithm)
-                    .build()
-                    .verify(token);
-
-            // accept the token if the token does not expire in the next 10 minutes
-            long currentTimeMillis = System.currentTimeMillis() + 10 * 60 * 1000;
-            JWT.require(algorithm)
-                    .acceptNotBefore(currentTimeMillis)
-                    .build()
-                    .verify(token);
-
-        } catch (JWTVerificationException exception){
-            return false;                                //Invalid signature/claims
-        }
-        return true;
-    }
+//    private boolean isValidToken(String authHeader) {
+//        if (authHeader == null || !authHeader.startsWith("Bearer ")) return false;
+//        String token = authHeader.substring("Bearer ".length());
+//
+//        try {
+//            Algorithm algorithm = Algorithm.HMAC256("secret");
+//            JWT.require(algorithm)
+//                    .build()
+//                    .verify(token);
+//
+//            // accept the token if the token does not expire in the next 10 minutes
+//            long currentTimeMillis = System.currentTimeMillis() + 10 * 60 * 1000;
+//            JWT.require(algorithm)
+//                    .acceptNotBefore(currentTimeMillis)
+//                    .build()
+//                    .verify(token);
+//
+//        } catch (JWTVerificationException exception){
+//            return false;                                //Invalid signature/claims
+//        }
+//        return true;
+//    }
 }

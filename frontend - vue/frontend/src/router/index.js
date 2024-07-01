@@ -10,6 +10,9 @@ import EditDestination from '../views/cms/EditDestinationView.vue'
 import ArticlesView from '../views/cms/ArticlesView.vue'
 import EditArticle from '../views/cms/EditArticlesView.vue'
 import AddArticle from '../views/cms/NewArticleView.vue'
+import UsersView from '../views/cms/UsersView.vue'
+import EditUser from '../views/cms/EditUserView.vue'
+import AddUser from '../views/cms/NewUserView.vue'
 
 Vue.use(VueRouter)
 
@@ -66,6 +69,24 @@ const routes = [
     path: '/articles/:id/update',
     name: 'EditArticle',
     component: EditArticle,
+    props: true,
+  },
+  {
+    path: '/users/all',
+    name: 'UsersView',
+    component: UsersView,
+    props: true,
+  },
+  {
+    path: '/users/:id/update',
+    name: 'EditUser',
+    component: EditUser,
+    props: true,
+  },
+  {
+    path: '/users/add',
+    name: 'AddUser',
+    component: AddUser,
     props: true,
   },
   

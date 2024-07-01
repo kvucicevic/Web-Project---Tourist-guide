@@ -1,6 +1,5 @@
 package group.raf.webproject.repository.comment;
 
-import group.raf.webproject.database.model.Article;
 import group.raf.webproject.database.model.Comment;
 
 import java.sql.*;
@@ -39,12 +38,12 @@ public class CommentRepositoryImpl implements CommentRepository {
 
         try {
             connection = connect();
-            String sql = "INSERT INTO Comment (id, Articleid, author, content) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Comment (Articleid, author, content) VALUES (?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, comment.getId());
-            preparedStatement.setInt(2, comment.getArticleId());
-            preparedStatement.setString(3, comment.getAuthor());
-            preparedStatement.setString(4, comment.getContent());
+            //preparedStatement.setInt(1, comment.getId());
+            preparedStatement.setInt(1, comment.getArticleId());
+            preparedStatement.setString(2, comment.getAuthor());
+            preparedStatement.setString(3, comment.getContent());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
 

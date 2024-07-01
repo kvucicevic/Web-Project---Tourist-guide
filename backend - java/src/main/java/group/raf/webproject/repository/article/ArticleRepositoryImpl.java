@@ -38,15 +38,15 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
         try {
             connection = connect();
-            String sql = "INSERT INTO Article (id, Userid, title, date, text, visitNo, Destinationid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Article (title, date, text, visitNo, Destinationid) VALUES (?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, article.getId());
-            preparedStatement.setInt(2, article.getUserId());
-            preparedStatement.setString(3, article.getTitle());
-            preparedStatement.setDate(4, article.getDate());
-            preparedStatement.setString(5, article.getText());
-            preparedStatement.setInt(6, article.getVisitNo());
-            preparedStatement.setInt(7, article.getDestinationId());
+            //preparedStatement.setInt(1, article.getId());
+            //preparedStatement.setInt(1, article.getUserId());
+            preparedStatement.setString(1, article.getTitle());
+            preparedStatement.setDate(2, article.getDate());
+            preparedStatement.setString(3, article.getText());
+            preparedStatement.setInt(4, article.getVisitNo());
+            preparedStatement.setInt(5, article.getDestinationId());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
 
@@ -305,15 +305,14 @@ public class ArticleRepositoryImpl implements ArticleRepository {
 
         try {
             connection = connect();
-            String sql = "UPDATE Article SET Userid = ?, title = ?, date = ?, text = ?, visitNo = ?, Destinationid = ? WHERE id = ?";
+            String sql = "UPDATE Article SET title = ?, date = ?, text = ?, visitNo = ?, Destinationid = ? WHERE id = ?";
             preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, article.getUserId());
-            preparedStatement.setString(2, article.getTitle());
-            preparedStatement.setDate(3, article.getDate());
-            preparedStatement.setString(4, article.getText());
-            preparedStatement.setInt(5, article.getVisitNo());
-            preparedStatement.setInt(6, article.getDestinationId());
-            preparedStatement.setInt(7, article.getId());
+            preparedStatement.setString(1, article.getTitle());
+            preparedStatement.setDate(2, article.getDate());
+            preparedStatement.setString(3, article.getText());
+            preparedStatement.setInt(4, article.getVisitNo());
+            preparedStatement.setInt(5, article.getDestinationId());
+            preparedStatement.setInt(6, article.getId());
             preparedStatement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

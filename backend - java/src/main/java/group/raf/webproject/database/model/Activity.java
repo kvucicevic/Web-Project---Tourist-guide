@@ -12,16 +12,14 @@ public class Activity implements Serializable {
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "Destinationid")
     private Integer destinationId;
 
-    // Default constructor
     public Activity() {}
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -46,7 +44,6 @@ public class Activity implements Serializable {
         this.destinationId = destinationId;
     }
 
-    // Override toString method
     @Override
     public String toString() {
         return "Activity{" +

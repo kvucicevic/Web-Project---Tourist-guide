@@ -8,4 +8,5 @@ public interface RoleRepository {
 
     List<Role> allRoles();
 
+    Role findRoleByName(String name);
 }

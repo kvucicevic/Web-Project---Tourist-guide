@@ -92,10 +92,13 @@ public class ArticleServiceImpl implements ArticleService {
         return articleMapper.articleToArticleResponseDTO(articleRepository.findArticleById(id));
     }
 
+
     @Override
     public ArticleResponseDTO update(Integer id, ArticleRequestDTO articleRequestDTO) {
-        Article article = articleRepository.updateArticle(articleMapper.articleRequestDTOToArticle(articleRequestDTO));
-        return articleMapper.articleToArticleResponseDTO(article);
+        Article article = articleMapper.articleRequestDTOToArticle(articleRequestDTO);
+        article.setId(id);
+        System.out.println("Destination: " + articleRequestDTO.getDestinationId());
+        return articleMapper.articleToArticleResponseDTO(articleRepository.updateArticle(article));
     }
 
     @Override

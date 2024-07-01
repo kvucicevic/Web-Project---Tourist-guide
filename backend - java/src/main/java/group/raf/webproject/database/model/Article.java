@@ -31,10 +31,8 @@ public class Article implements Serializable {
     @Column(name = "Destinationid")
     private Integer destinationId;
 
-    // Default constructor
     public Article() {}
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }

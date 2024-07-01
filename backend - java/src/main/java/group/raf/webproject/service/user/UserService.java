@@ -1,5 +1,6 @@
 package group.raf.webproject.service.user;
 
+import com.auth0.jwt.interfaces.DecodedJWT;
 import group.raf.webproject.dto.token.TokenRequestDTO;
 import group.raf.webproject.dto.token.TokenResponseDTO;
 import group.raf.webproject.dto.user.UserRequestDTO;
@@ -22,4 +23,10 @@ public interface UserService {
     TokenResponseDTO login(TokenRequestDTO tokenRequestDTO);
 
     UserResponseDTO delete(Integer id);
+
+    Boolean userExists(DecodedJWT jwt);
+
+    Boolean isAdmin(DecodedJWT jwt);
+
+    Boolean isEditor(DecodedJWT jwt);
 }

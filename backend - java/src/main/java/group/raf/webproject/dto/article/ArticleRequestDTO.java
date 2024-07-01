@@ -4,9 +4,7 @@ import java.sql.Date;
 
 public class ArticleRequestDTO {
 
-    private Integer id;
-
-    private Integer userId;
+    //private Integer userId;
 
     private String title;
 
@@ -18,14 +16,6 @@ public class ArticleRequestDTO {
 
     private Integer destinationId;
 
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;
@@ -59,13 +49,13 @@ public class ArticleRequestDTO {
         this.visitNo = visitNo;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
+//    public Integer getUserId() {
+//        return userId;
+//    }
+//
+//    public void setUserId(Integer userId) {
+//        this.userId = userId;
+//    }
 
     public Integer getDestinationId() {
         return destinationId;

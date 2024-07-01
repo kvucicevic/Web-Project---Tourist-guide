@@ -27,4 +27,10 @@ public class RoleServiceImpl implements RoleService {
         return RoleResponseDTOS;
     }
 
+    @Override
+    public RoleResponseDTO findByName(String name) {
+        Role role = roleRepository.findRoleByName(name);
+        return roleMapper.roleToRoleResponseDTO(role);
+    }
+
 }

@@ -1,9 +1,11 @@
 package group.raf.webproject.repository.user;
 
 import group.raf.webproject.database.model.User;
+import group.raf.webproject.dto.token.TokenRequestDTO;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,15 +40,15 @@ public class UserRepositoryImpl implements UserRepository {
 
         try {
             connection = connect();
-            String sql = "INSERT INTO User (id, name, surname, email, password, Active, RoleId) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO User (name, surname, email, password, Active, RoleId) VALUES (?, ?, ?, ?, ?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, user.getId());
-            preparedStatement.setString(2, user.getName());
-            preparedStatement.setString(3, user.getSurname());
-            preparedStatement.setString(4, user.getEmail());
-            preparedStatement.setString(5, user.getPassword());
-            preparedStatement.setBoolean(6, user.isActive());
-            preparedStatement.setInt(7, user.getRoleId());
+            //preparedStatement.setInt(1, user.getId());
+            preparedStatement.setString(1, user.getName());
+            preparedStatement.setString(2, user.getSurname());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setBoolean(5, user.isActive());
+            preparedStatement.setInt(6, user.getRoleId());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
 
@@ -300,5 +302,66 @@ public class UserRepositoryImpl implements UserRepository {
             }
         }
         return user;
+    }
+
+    @Override
+    public List<Object> loginUser(TokenRequestDTO loginRequest) {
+        User user = null;
+        String role = null;
+
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+
+        try {
+            connection = connect();
+            String sql = "SELECT User.*, Role.name AS role" +
+                    " FROM User" +
+                    " JOIN Role ON User.roleId = role.id" +
+                    " WHERE User.name = ? AND User.password = ?";
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, loginRequest.getUsername());
+            statement.setString(2, loginRequest.getPassword());
+            resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                user = resultSetToUser(resultSet);
+                role = resultSet.getString("role");
+            }
+            if(user == null || !user.isActive()) return null;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            try {
+                Optional.ofNullable(statement).ifPresent(p -> {
+                    try { p.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+                Optional.ofNullable(connection).ifPresent(c -> {
+                    try { c.close(); } catch (SQLException e) { e.printStackTrace(); }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        ArrayList<Object> list = new ArrayList<>();
+        list.add(user);
+        list.add(role);
+        return list;
+    }
+
+    private User resultSetToUser(ResultSet rs) throws SQLException {
+        return new User(
+                rs.getInt("id"),
+                rs.getString("name"),
+                rs.getString("surname"),
+                rs.getString("email"),
+                rs.getString("password"),
+                rs.getBoolean("active"),
+                rs.getInt("roleId")
+        );
     }
 }

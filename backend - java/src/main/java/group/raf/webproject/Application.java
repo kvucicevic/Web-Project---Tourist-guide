@@ -1,6 +1,8 @@
 package group.raf.webproject;
 
 import group.raf.webproject.mapper.*;
+import group.raf.webproject.repository.activity.ActivityRepository;
+import group.raf.webproject.repository.activity.ActivityRepositoryImpl;
 import group.raf.webproject.repository.article.ArticleRepository;
 import group.raf.webproject.repository.article.ArticleRepositoryImpl;
 import group.raf.webproject.repository.comment.CommentRepository;
@@ -43,12 +45,14 @@ public class Application extends ResourceConfig {
                 this.bind(ArticleRepositoryImpl.class).to(ArticleRepository.class).in(Singleton.class);
                 this.bind(RoleRepositoryImpl.class).to(RoleRepository.class).in(Singleton.class);
                 this.bind(CommentRepositoryImpl.class).to(CommentRepository.class).in(Singleton.class);
+                this.bind(ActivityRepositoryImpl.class).to(ActivityRepository.class).in(Singleton.class);
 
                 this.bind(UserMapper.class).to(UserMapper.class).in(Singleton.class);
                 this.bind(DestinationMapper.class).to(DestinationMapper.class).in(Singleton.class);
                 this.bind(ArticleMapper.class).to(ArticleMapper.class).in(Singleton.class);
                 this.bind(RoleMapper.class).to(RoleMapper.class).in(Singleton.class);
                 this.bind(CommentMapper.class).to(CommentMapper.class).in(Singleton.class);
+                this.bind(ActivityMapper.class).to(ActivityMapper.class).in(Singleton.class);
 
                 this.bind(UserServiceImpl.class).to(UserService.class).in(Singleton.class);
                 this.bind(DestinationServiceImpl.class).to(DestinationService.class).in(Singleton.class);
@@ -63,5 +67,6 @@ public class Application extends ResourceConfig {
         packages("group.raf.webproject.mapper");
         packages("group.raf.webproject.resources");
         packages("group.raf.webproject.repository");
+        packages("group.raf.webproject.filters");
     }
 }

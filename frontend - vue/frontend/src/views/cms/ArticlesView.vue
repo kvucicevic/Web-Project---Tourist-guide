@@ -60,8 +60,7 @@ export default {
       }
     },
     createNewArticle() {
-      console.log('1 ovde sam usao')
-      this.$router.push('/articles/create-new');
+      this.$router.push('/cmsArticles/add');
     }
   }
 };

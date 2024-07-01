@@ -50,12 +50,6 @@ export default {
         console.error('Error creating article:', error);
       }
     }
-  },
-  created() {
-    console.log("created")
-  },
-  mounted() {
-    console.log("mounted")
   }
 
 };

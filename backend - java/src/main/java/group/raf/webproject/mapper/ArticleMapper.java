@@ -8,8 +8,7 @@ public class ArticleMapper {
 
     public Article articleRequestDTOToArticle(ArticleRequestDTO articleRequestDTO) {
         Article article = new Article();
-        article.setId(articleRequestDTO.getId());
-        article.setUserId(articleRequestDTO.getUserId());
+//        article.setUserId(articleRequestDTO.getUserId());
         article.setTitle(articleRequestDTO.getTitle());
         article.setDate(articleRequestDTO.getDate());
         article.setText(articleRequestDTO.getText());
@@ -20,9 +19,12 @@ public class ArticleMapper {
 
     public ArticleResponseDTO articleToArticleResponseDTO(Article article) {
         ArticleResponseDTO articleResponseDTO = new ArticleResponseDTO();
+        articleResponseDTO.setId(article.getId());
         articleResponseDTO.setDate(article.getDate());
         articleResponseDTO.setText(article.getText());
         articleResponseDTO.setTitle(article.getTitle());
+        articleResponseDTO.setVisitNo(article.getVisitNo());
+        articleResponseDTO.setDestinationId(article.getDestinationId());
         return articleResponseDTO;
     }
 

@@ -33,6 +33,16 @@ public class User implements Serializable {
     // Default constructor
     public User() {}
 
+    public User(Integer id, String name, String surname, String email, String password, boolean active, Integer roleId) {
+        this.id = id;
+        this.name = name;
+        this.surname = surname;
+        this.email = email;
+        this.password = password;
+        this.active = active;
+        this.roleId = roleId;
+    }
+
     // Getters and Setters
     public Integer getId() {
         return id;

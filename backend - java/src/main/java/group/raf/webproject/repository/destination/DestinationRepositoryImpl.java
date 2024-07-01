@@ -39,11 +39,11 @@ public class DestinationRepositoryImpl implements DestinationRepository {
 
         try {
             connection = connect();
-            String sql = "INSERT INTO Destination (id, name, description) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO Destination (name, description) VALUES (?, ?)";
             preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setInt(1, destination.getId());
-            preparedStatement.setString(2, destination.getName());
-            preparedStatement.setString(3, destination.getDescription());
+            //preparedStatement.setInt(1, destination.getId());
+            preparedStatement.setString(1, destination.getName());
+            preparedStatement.setString(2, destination.getDescription());
             preparedStatement.executeUpdate();
             resultSet = preparedStatement.getGeneratedKeys();
 
@@ -196,6 +196,8 @@ public class DestinationRepositoryImpl implements DestinationRepository {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
 
+        System.out.println(destination.getName());
+        System.out.println(destination.getDescription());
         try {
             connection = connect();
             String sql = "UPDATE Destination SET name = ?, description = ? WHERE id = ?";
@@ -233,7 +235,7 @@ public class DestinationRepositoryImpl implements DestinationRepository {
                 connection = connect();
                 String sql = "DELETE FROM Destination WHERE id = ?";
                 preparedStatement = connection.prepareStatement(sql);
-                //preparedStatement.setString(1, id);
+                preparedStatement.setInt(1, id);
                 preparedStatement.executeUpdate();
             } catch (Exception e) {
                 e.printStackTrace();

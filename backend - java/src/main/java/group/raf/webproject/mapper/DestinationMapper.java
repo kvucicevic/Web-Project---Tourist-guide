@@ -8,7 +8,6 @@ public class DestinationMapper {
 
     public Destination destinationRequestDTOToDestination(DestinationRequestDTO destinationRequestDTO) {
         Destination destination = new Destination();
-        destination.setId(destinationRequestDTO.getId());
         destination.setName(destinationRequestDTO.getName());
         destination.setDescription(destinationRequestDTO.getDescription());
         return destination;
@@ -16,6 +15,7 @@ public class DestinationMapper {
 
     public DestinationResponseDTO destinationToDestinationResponseDTO(Destination destination) {
         DestinationResponseDTO destinationResponseDTO = new DestinationResponseDTO();
+        destinationResponseDTO.setId(destination.getId());
         destinationResponseDTO.setDescription(destination.getDescription());
         destinationResponseDTO.setName(destination.getName());
         return destinationResponseDTO;
