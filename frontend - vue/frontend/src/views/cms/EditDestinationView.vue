@@ -58,4 +58,31 @@
     }
   }
   </script>
+
+<style scoped>
+/* General styles for destination form wrapper */
+.destination-form-wrapper {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .destination-form-wrapper {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .destination-form-wrapper {
+        padding: 10px;
+    }
+}
+
+</style>
   

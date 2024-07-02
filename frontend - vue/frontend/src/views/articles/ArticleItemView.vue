@@ -142,19 +142,166 @@ export default {
   
 <style>
 .article-detail {
-  padding: 20px;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .article-detail h1 {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #333;
 }
+
 .article-detail p {
-  margin: 5px 0;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
 }
+
 .comments-section {
-  margin-top: 40px;
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
 }
+
+.comments-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
 .comment {
-  margin-bottom: 20px;
+    margin-bottom: 15px;
 }
+
+.comment p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.comment strong {
+    color: #333;
+}
+
+.add-comment-form {
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.add-comment-form h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.add-comment-form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-comment-form form div {
+    margin-bottom: 15px;
+}
+
+.add-comment-form label {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    color: #666;
+}
+
+.add-comment-form input[type="text"],
+.add-comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.add-comment-form input[type="text"]:focus,
+.add-comment-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.add-comment-form button {
+    padding: 10px 15px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.add-comment-form button:hover {
+    background-color: #0056b3;
+}
+
+.activities-section {
+    max-width: 800px;
+    margin: 0 auto 20px auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+.activities-section h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+.activities-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.activities-section li {
+    margin-bottom: 10px;
+}
+
+.activities-section a {
+    font-size: 1rem;
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+.activities-section a:hover {
+    color: #0056b3;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .article-detail, .comments-section, .add-comment-form, .activities-section {
+        padding: 15px;
+    }
+
+    .article-detail h1, .comments-section h2, .add-comment-form h2, .activities-section h2 {
+        font-size: 1.25rem;
+    }
+
+    .article-detail p, .comment p, .add-comment-form label, .add-comment-form input[type="text"], .add-comment-form textarea, .add-comment-form button, .activities-section a {
+        font-size: 0.875rem;
+    }
+}
+
 </style>
   

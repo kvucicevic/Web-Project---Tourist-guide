@@ -52,23 +52,21 @@ export default {
 };
 </script>
 
-
-  
-  <style>
-  .articles-section {
-    margin-top: 20px;
-  }
-  .article {
-    margin-bottom: 20px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  .article h3 {
-    margin: 0;
-  }
-  .article p {
-    margin: 5px 0;
-  }
-  </style>
+<style>
+.articles-section {
+  margin-top: 20px;
+}
+.article {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+.article h3 {
+  margin: 0;
+}
+.article p {
+  margin: 5px 0;
+}
+</style>
   

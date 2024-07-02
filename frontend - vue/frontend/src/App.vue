@@ -1,18 +1,18 @@
 <template>
   <div class="container">
-    <NavigationBar/>
+    <DynamicNavBar/>
     <router-view/>
   </div>
 </template>
 
 <script>
 
-import NavigationBar from "./components/NavigationBar.vue";
+import DynamicNavBar from "./components/DynamicNavBar.vue";
 
 export default {
   name: 'App',
   components: {
-    NavigationBar
+    DynamicNavBar
   }
 }
 </script>
