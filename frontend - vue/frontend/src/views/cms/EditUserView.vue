@@ -8,7 +8,7 @@
       </div>
       <div>
         <label for="lastName">Last name:</label>
-        <input type="date" v-model="user.lastName" required />
+        <input type="text" v-model="user.lastName" required />
       </div>
       <div>
         <label for="email">Email:</label>

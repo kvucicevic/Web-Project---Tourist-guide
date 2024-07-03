@@ -1,13 +1,18 @@
 <template>
   <div>
     <div class="destinations-container">
-      <div class="destination-item-container" v-for="destination in destinations" :key="destination.id">
+      <div class="destination-item-container" v-for="destination in paginatedDestinations" :key="destination.id">
         <DestinationItem :destination="destination"/>
         <div class="buttons">
           <button @click="editDestination(destination.id)">Edit</button>
           <button @click="deleteDestination(destination.id)">Delete</button>
         </div>
       </div>
+    </div>
+    <div class="pagination-controls">
+      <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
     </div>
     <button class="new-destination-button" @click="createNewDestination">New Destination</button>
   </div>
@@ -24,7 +29,18 @@ export default {
   },
   data() {
     return {
-      destinations: []
+      destinations: [],
+      currentPage: 1,
+      destinationsPerPage: 5,
+    }
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.destinations.length / this.destinationsPerPage);
+    },
+    paginatedDestinations() {
+      const start = (this.currentPage - 1) * this.destinationsPerPage;
+      return this.destinations.slice(start, start + this.destinationsPerPage);
     }
   },
   created() {
@@ -60,6 +76,16 @@ export default {
     },
     createNewDestination() {
       this.$router.push('/destinations/add')
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
     }
   }
 }

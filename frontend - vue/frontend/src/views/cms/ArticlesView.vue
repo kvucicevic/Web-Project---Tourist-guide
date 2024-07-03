@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="articles-container">
-      <div class="article-item-container" v-for="article in articles" :key="article.id">
+      <div class="article-item-container" v-for="article in paginatedArticles" :key="article.id">
         <ArticleItem :article="article"/>
         <div class="buttons">
           <button @click="editArticle(article.id)">Edit</button>
@@ -9,7 +9,11 @@
         </div>
       </div>
     </div>
-    <!-- <button class="new-article-button" @click="createNewArticle">New Article</button> -->
+    <div class="pagination-controls">
+      <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
+      <span>Page {{ currentPage }} of {{ totalPages }}</span>
+      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+    </div>
     <router-link to="/cmsArticles/add" class="button">Add article</router-link>
   </div>
 </template>
@@ -25,8 +29,19 @@ export default {
   },
   data() {
     return {
-      articles: []
+      articles: [],
+      currentPage: 1,
+      articlesPerPage: 5,
     };
+  },
+  computed: {
+    totalPages() {
+      return Math.ceil(this.articles.length / this.articlesPerPage);
+    },
+    paginatedArticles() {
+      const start = (this.currentPage - 1) * this.articlesPerPage;
+      return this.articles.slice(start, start + this.articlesPerPage);
+    }
   },
   created() {
     this.fetchArticles();
@@ -61,13 +76,22 @@ export default {
     },
     createNewArticle() {
       this.$router.push('/cmsArticles/add');
+    },
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
     }
   }
 };
 </script>
 
 <style>
-/* General styles for articles container */
 .articles-container {
     max-width: 1200px;
     margin: 0 auto;
